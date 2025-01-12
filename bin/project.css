@@ -1,0 +1,686 @@
+
+body {
+    font-family: sans-serif;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 450px;
+}
+
+p {
+    font-size: 18px;
+    text-align: center;
+    float: none;
+}
+
+h3 {
+    padding: 0;
+    text-decoration: bold;
+    font-weight: normal;
+    font-size: 30px;
+}
+
+a {
+    background-color: #e3f3da;
+    display: block;
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+a:hover {
+    background-color: #dd1e1e;
+    color: black;
+}
+
+button {
+    border-radius: 8px;
+    color: white;
+    background-color: rgb(239, 58, 70);
+}
+
+
+
+/*CSS for Headers*/
+.header {
+
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+
+}
+
+.header img {
+
+    float: left;
+
+}
+
+.header h1 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    display: inline-block;
+    position: relative;
+    color: white;
+}
+
+.header a {
+    float: right;
+    background-color: rgb(239, 58, 70);
+    color: white;
+    align-content: right;
+    text-align: right;
+    padding: 20px;
+    margin: 15px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.header a:hover {
+    background-color: rgb(163, 32, 41);
+}
+
+/*CSS for Footers*/
+.footerBar {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    margin-top: auto;
+
+}
+
+.footerBar p {
+
+    color: white;
+}
+
+/*CSS for Icons Class*/
+.header .icon {
+    display: none;
+    margin: 15px;
+}
+
+.header .icon img {
+    width: 20px;
+    height: 20px;
+}
+
+/*Media to display hamburger at 500px* for Select Board Page*/
+@media screen and (max-width:850px) {
+    .header a:not(:first-child) {
+        display: none;
+    }
+
+    .header a.icon {
+        float: right;
+        display: block;
+
+        .header.responsive {
+            position: relative;
+        }
+
+        .header.responsive .icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: block;
+
+        }
+    }
+
+    .header.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+        margin: 0px;
+        height: 25px;
+
+
+    }
+
+    .header.responsive img {
+        margin-bottom: 20px
+    }
+
+
+}
+
+/*CSS for Board Buttons*/
+.newBoards {
+    text-align: center;
+}
+
+.selectPageButtons {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    flex: 1;
+}
+
+.selectPageButtons h2 {
+    text-align: left;
+    margin-left: 20px;
+    font-size: 25px;
+    text-decoration: underline;
+
+
+}
+
+.selectPageButtons h3 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+
+
+}
+
+.selectPageButtons button {
+
+    font-size: 20px;
+    background-color: rgb(239, 58, 70);
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    display: inline-block;
+
+}
+
+.selectPageButtons button:hover {
+    background-color: rgb(163, 32, 41);
+}
+
+
+/*CSS for Board Button Popups*/
+.formPopUp {
+    display: none;
+    position: fixed;
+    width: 30vw;
+    min-width: 200px;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    border: 3px solid #999999;
+    background-color: #fff;
+    text-align: center;
+    font-size: 100%;
+}
+
+.formPopUp .input-container {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.formPopUp input {
+    width: 50%;
+    text-align: center;
+    box-sizing: border-box;
+
+}
+
+.formPopUp .button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.formPopUp button {
+    margin: 10px;
+    text-align: center;
+    min-width: 20px;
+}
+
+.formPopUp button:hover {
+    background-color: rgb(163, 32, 41);
+}
+
+/*CSS for Channel Button Popups*/
+.formPopUpChannel {
+    display: none;
+    position: fixed;
+    width: 15vw;
+    left: 8.5vw;
+    top: 20vh;
+    min-width: 75px;
+    max-width: 300px;
+    transform: translate(-50%, 10%);
+    border: 3px solid #999999;
+    background-color: #fff;
+    text-align: center;
+    font-size: 75%;
+}
+
+.formPopUpChannel .memberPopUp p {
+   align-items: center;
+   justify-content: center;
+    text-align: center;
+}
+.formPopUpChannel .memberPopUp p {
+   font-size: 150%;
+}
+.formPopUpChannel .memberPopUp table {
+   font-size: 150%;
+   align-items: center;
+   margin:auto;
+   
+}
+
+.formPopUpChannel .memberPopUp img {
+   width:20px;
+   height:20px;
+   align-items: center;
+}
+.formPopUpChannel td {
+   font-size: 75%;
+   align-items: center;
+}
+
+@media (max-width: 850px) {
+    .formPopUpChannel{
+     left: 70px;
+      font-size: 60%;
+    }
+
+    .formPopUpChannel input {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 75%;
+    }
+
+    .formPopUpChannel button {
+    margin: 10px;
+    text-align: center;
+    font-size: 100%;
+}
+
+}
+
+@media (max-width: 650px) {
+.formPopUpChannel .memberPopUp img {
+   width:10px;
+   height:10px;
+   align-items: center;
+}
+
+#membersPopup{
+    left: 12vw;
+    width: 20vw;
+}
+
+.formPopUpChannel td {
+   font-size: 75%;
+   align-items: center;
+}
+}
+.formPopUpChannel .input-container {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.formPopUpChannel input {
+    width: 75%;
+    text-align: center;
+    box-sizing: border-box;
+
+}
+
+.formPopUpChannel .button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.formPopUpChannel button {
+    margin: 10px;
+    text-align: center;
+}
+
+.formPopUpChannel button:hover {
+  background-color: rgb(163, 32, 41);
+}
+
+.formPopUpChannel img {
+    width:4vw; 
+    height:4vw;
+    min-width: 25px;
+    min-height: 25px;
+    text-align: center;
+    display: block;
+}
+
+
+/*CSS for List of Channels on Side and Buttons*/
+.boardChannels a {
+    border: 3px solid #999999;
+    padding: 20px;
+    text-align: center;
+    font-size: 15px;
+    display: block;
+    overflow:hidden;
+}
+
+.boardChannels .icon {
+    display: none;
+    overflow:hidden;
+}
+
+
+
+/*Media to display hamburger at 500px for Board Channels*/
+@media screen and (max-width:800px) {
+
+    .boardChannels a:not(:first-child) {
+        display: none;
+        margin: 0px;
+    }
+
+    .boardChannels a.icon {
+        display: inline-block;
+
+        .boardChannels.responsive {
+            position: relative;
+        }
+
+        .boardChannels.responsive a.icon {
+        float:left;
+        }
+    }
+
+    .boardChannels.responsive a {
+        display: inline-block;
+        text-align: left;
+        width: 60%;
+        text-align: left;
+    
+
+    }
+
+}
+
+.boardIcons a {
+    border: 3px solid #999999;
+    text-align: center;
+    font-size: 15px;
+    display: inline-block;
+    width:1vw;
+    height:1vw;
+    min-width: 20px;
+    min-height: 20px;
+    line-height: 1vw; /* Match the height of the container */
+    text-align: center;
+    vertical-align: middle;
+}
+
+.boardIcons img {
+   
+    width: 100%;
+    height: 100%;
+    display:flex;
+    margin:auto;
+
+}
+
+.boardIcons .icon {
+    display: none;
+    width:1vw;
+    height:1vw;
+}
+
+.boardIcons button {
+    background-color: #a50e0e;
+    padding: 20px;
+    text-align: center;
+    display: block;
+    width: 40%;
+
+}
+
+
+/*Media to display hamburger at 500px for Board Channels*/
+@media screen and (max-width:1510px) {
+    .boardIcons a:not(:first-child) {
+        display: none;
+        margin: 0px;
+    }
+
+    .boardIcons a.icon {
+        display: block;
+
+        .boardIcons.responsive {
+            position: relative;
+        }
+
+        .boardIcons.responsive .icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width:1vw;
+            height:1vw;
+
+        }
+    }
+
+    .boardIcons.responsive a {
+        display: inline-block;
+        text-align: left;
+    
+
+    }
+
+    .boardIcons.responsive img {
+        padding: 0px;
+    }
+
+}
+
+
+
+/*CSS for Single Channel and Message Table*/
+.fullBoard{
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.singleChannel {
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 70vh;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    text-align: center; 
+    overflow-y: auto;
+}
+
+.singleChannel table {
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    width:100%; 
+    position:relative;
+    display:flex;
+    font-size: 18px;
+}
+.singleChannel td {
+    padding:5px;
+    vertical-align: top;
+    min-height: 1vh;
+}
+
+.singleChannel img {
+    max-width: 25vw;
+    max-height: 35vw;
+    margin-top: 5vh;
+    display:flex;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+@media (max-width: 1400px) {
+    .singleChannel img {
+      max-width: 60%; 
+      max-height:60%;
+    }
+  }
+  
+  @media (max-width: 800px) {
+    .singleChannel img {
+      width: 100%; 
+
+      max-height:100%;
+    }
+  }
+/*CSS Message Input Form*/
+.msgForm {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; 
+  }
+  
+  .msgForm form {
+    width: 100%;
+    text-align: center; 
+  }
+
+.msgForm input {
+    padding: 8px;
+    margin-bottom: 15px;
+    justify-content: center;
+    align-items: center;
+    width:90%;
+    font-size: 15px;
+    height: 10%;
+}
+
+.msgForm button {
+    padding: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    width:5%;  
+    min-width: 75px;
+}
+
+
+
+
+[class*="col-"] {
+    float: left;
+    /*border:1px solid red;*/
+}
+
+/* Phone Size */
+@media screen {
+    .col-p-1 {
+        width: 8.33%;
+    }
+
+    .col-p-2 {
+        width: 16.66%;
+    }
+
+    .col-p-3 {
+        width: 25%;
+    }
+
+    .col-p-4 {
+        width: 33.33%;
+    }
+
+    .col-p-5 {
+        width: 41.66%;
+    }
+
+    .col-p-6 {
+        width: 50%;
+    }
+
+    .col-p-7 {
+        width: 58.33%;
+    }
+
+    .col-p-8 {
+        width: 66.66%;
+    }
+
+    .col-p-9 {
+        width: 75%;
+    }
+
+    .col-p-10 {
+        width: 83.0;
+    }
+
+    .col-p-11 {
+        width: 91.0%;
+    }
+
+    .col-p-12 {
+        width: 100%;
+    }
+}
+
+/*Desktop Size*/
+@media screen and (min-width:600px) {
+    .col-1 {
+        width: 8.33%;
+    }
+
+    .col-2 {
+        width: 16.66%;
+    }
+
+    .col-3 {
+        width: 25%;
+    }
+
+    .col-4 {
+        width: 33%;
+    }
+
+    .col-5 {
+        width: 41.66%;
+    }
+
+    .col-6 {
+        width: 50%;
+    }
+
+    .col-7 {
+        width: 58.33%;
+    }
+
+    .col-8 {
+        width: 66.66%;
+    }
+
+    .col-9 {
+        width: 75%;
+    }
+
+    .col-10 {
+        width: 83.0%;
+    }
+
+    .col-11 {
+        width: 91.66%;
+    }
+
+    .col-12 {
+        width: 100%;
+    }
+
+}

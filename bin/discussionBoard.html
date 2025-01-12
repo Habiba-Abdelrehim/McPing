@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- CSS Refrences  -->
+  <link rel="stylesheet" type="text/css" href="project.css">
+
+
+  <!-- View Port Import -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <!-- JavaScript-->
+   <script src="utils.js"></script>
+
+
+  <!--LogOut API Call-->
+  <script>
+
+    function logOut() {
+      httpPost("../cgi_bin/logout.php", "", function (response) {
+        document.open();
+        document.write(response);
+        document.close();
+      });
+    }
+
+  </script>
+
+</head>
+
+<body vlink="black" alink="black" 
+style="background-image: url(imgs/light\ electirc.jpg);
+        background-repeat: no-repeat; 
+        background-size: cover;">
+
+
+  <div id="pageHeader">
+    <!-- Header Bar -->
+    <div class="col-12 col-p-12">
+      <div class="header" id="disHeader">
+
+        <!-- Logo Source2228 x 800 original size  2.785 Ratio> -->
+
+        <img style="margin:20px;" width="150px" height="54px" src="imgs/logo_wText.png"></img>
+
+
+
+        <!-- Title  -->
+
+        <h1 style="color: white;"> McPing </h1>
+
+        <!-- Logout Button  -->
+        <a id="logOut" onClick="logOut()">Log Out</a>
+
+        <!-- SelectDis  Button-->
+        <a id="headerSelect" href="selectDiscussion.html"> Select Discussion Board</a>
+        <!-- Write code to jump to selectDis page  -->
+
+
+        <!-- Hamburger Menu Button  -->
+        <a href="javascript:void(0);" class="icon" id="menuIcon" onclick="hamburgerFunctionMenu()">
+          <img src="imgs/MenuButWhite.png" width="20px" height="20px"></img>
+        </a>
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+  <div class="mainContent">
+
+    <div class="col-2 col-p-3">
+      <div class="sideBar">
+        <div class="boardIcons" id="channelIcons">
+
+          <a href="javascript:void(0);" class="icon" id="menuIcon" onclick="hamburgerFunctionIcons()">
+            <img src="imgs/MenuBut.png" width="20px" height="20px">
+            </img>
+          </a>
+
+          <a onclick=openChannelManagment()> <img src="imgs/gear.png"></img> </a>
+          <a onclick=openMembersList()><img src="imgs/member.png"></img></a>
+          <a onclick=openSearch()><img src="imgs/search.png"></img></a>
+
+        </div>
+
+        <div class="boardChannels" id="channels">
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="col-10 col-p-9" id="disContent">
+      <div class="fullBoard">
+        <div class="singleChannel" id="curChannel">
+          <img src="imgs/logo.png" id="backLogo"> </img>
+
+        </div>
+
+        <div class="msgForm" id="sendMsgForm" style="display:block;">
+          <form class="msgForm" id="msgBox" style="display: none" action="" method="POST">
+
+
+            <input type="text" name="board" id="iCode" placeholder="Message" required>
+            <input type="hidden" name="request" value="">
+
+
+            <button type="submit">Send</button>
+
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="hiddenPopups">
+
+    <!-- These popups are not finished, waiting for habiba's backend-->
+    <!-- Manage Channel Popup-->
+    <div class="formPopUpChannel" id="mangeChannelPopUp">
+      <h2 style="text-align: center;">Manage Channels</h2>
+      <button onclick=openCreateChannel()> Create <img src="imgs/plus.png"></img> </button>
+      <button onclick=openEditChannel()> Edit <img src="imgs/gear.png"></img> </button>
+      <button onclick=openDeleteChannel()> Delete <img src="imgs/trash.png"></img></button>
+      <br>
+      <button type="button" onclick="closePopUp()">Cancel</button>
+    </div>
+
+    =
+    <!-- Create Popup-->
+    <div class="formPopUpChannel" id="createChannelPopUp">
+      <form action="" method="POST">
+        <h2 style="text-align: center;">Create New Channel</h2>
+        <div class="inputContainer">
+          <input type="text" name="board" id="iCode" placeholder="Channel Name" required>
+          <input type="hidden" name="request" value="">
+        </div>
+        <div class="buttonContainer">
+          <button type="submit">Create</button>
+          <button type="button" onclick="closePopUp()">Cancel</button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Edit Channel Popup-->
+    <div class="formPopUpChannel" id="editChannelPopUp">
+      <form action="" method="POST">
+        <h2 style="text-align: center;">Edit Channel Name</h2>
+        <div class="inputContainer">
+          <input type="text" name="board" id="iCode" placeholder="Old Channel Name" required>
+          <input type="text" name="board" id="iCode" placeholder="New Channel Name" required>
+          <input type="hidden" name="request" value="">
+        </div>
+        <div class="buttonContainer">
+          <button type="submit">Submit Change</button>
+          <button type="button" onclick="closePopUp()">Cancel</button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Delect channels Popup-->
+    <div class="formPopUpChannel" id="deleteChannelPopUp">
+      <form action="" method="POST">
+        <h2 style="text-align: center;">Delete Channel</h2>
+        <div class="inputContainer">
+          <input type="text" name="board" id="iCode" placeholder="Channel Name" required>
+          <input type="hidden" name="request" value="">
+        </div>
+        <div class="buttonContainer">
+          <button type="submit">Delete</button>
+          <button type="button" onclick="closePopUp()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Search Popup-->
+    <div class="formPopUpChannel" id="searchPopup">
+      <form action="" method="POST">
+        <br>
+        <h2 style="text-align: center; display:inline;">Search Message</h2>
+        <br>
+        <br>
+        <div class="inputContainer">
+          <input type="text" name="board" id="iCode" placeholder="Search" required>
+          <input type="hidden" name="request" value="">
+        </div>
+        <div class="buttonContainer">
+          <button type="submit">Search</button>
+          <button type="button" onclick="closePopUp()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Members Popup-->
+    <div class="formPopUpChannel" id="membersPopup">
+
+      <h2 style="text-align: center; display:inline;">Invite Member</h2>
+
+      <button type="button" onclick="closePopUp()">
+        <img src=imgs/close.png style="width:1vw; height:1vw;"></img></button>
+
+      <input type="text" name="receiver" id="iCode" placeholder="User Email" required>
+
+      <br>
+      <button type="submit">Send</button>
+
+      <div class="memberPopUp" id="inviteCode"> </div>
+
+      <div class="memberPopUp" id="membersList" style="max-height: 300px; overflow-y: auto;">
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="footerBar">
+    <div class="col-12 col-p-12">
+      <p style="color:white">
+        McPing for McGill University
+        <br>
+        Ville Marie, Montreal, QC, Canada
+        <br> Chat robot to be released in January of 2024
+      </p>
+    </div>
+
+
+  </div>
+
+
+
+  <script>
+
+    //Arrays being populated from backend
+    var disChannels = [];
+    var members = [];
+    var invCode = '';
+
+
+    var users = ['Fatma', 'Tiana', 'Joshua', 'Fatma', 'Tiana', 'Joshua'];
+    var msg = ['Hello, How is everyone doing <br> <br>', 'Good how are you <br> <br>', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br> Aenean sodales turpis <br> it amet ipsum dignissim, vitae<br>  bibendum libero mattis. Sed id es<br> t non ligula iaculis elementum. Proin lacus velit, ullamcorp<br> er eget nunc non, fringilla ultrices massa<br> . Ut feugiat, nisl at <br> consectetur conse<br> ctetur, <br> turpis magna ultricies lorem<br> , eget hendrerit felis o<br> rci eget ligula',
+      'Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit. Aenean sodales <br> turpis sit amet ipsum dignissim,<br>  vitae bibendum libero mattis.<br>  Sed id est non ligula iaculis elementum<br> . Proin lacus velit, ullamcorpe<br> r eget nunc non, fringilla ultrices massa. Ut feugiat, nisl a<br> t consectetur consectetur, turpis magna <br> ultricies lorem, eget hendrerit felis orci eget ligula?',
+      'u Lorem ipsum dolor sit amet, consectetur u Lorem ipsum dolor sit amet, consectetur em ipsum dolor sit amet, consectetur <br> adipiscing elit. Aenean sodales <br> turpis sit amet ipsum dignissim,<br>  vitae bibendum libero mattis.<br>  Sed id est non ligula iaculis elementum<br> . Proin lacus velit, ullamcorpe<br> r eget nunc non, fringilla ultrices massa. Ut feugiat, nisl a<br> t consectetur consectetur, turpis magna <br> ultricies lorem, eget hendrerit felis orci eget ligula '
+      , 'em ipsum dolor sit amet, consectetur  adipiscing elit. Aenean sodales turpis sit amet ipsum dignissim, vitae bibendum libero mattis.  Sed id est non ligula iaculis elementum. Proin lacus velit, ullamcorpe r eget nunc non, fringilla ultrices massa. Ut feugiat, nisl a t consectetur consectetur, turpis magna ultricies lorem, eget hendrerit felis orci eget ligula']
+
+    
+
+    //get invite code from API 
+
+  
+    //Get the Board name from the ? in the URL 
+    const urlParams = new URLSearchParams(window.location.search);
+    const boardName = urlParams.get('board');
+
+    httpPost("../cgi_bin/selectBoard.php", "request=getBoardChannels&board="+boardName, function (response) {
+      disChannels = JSON.parse(response);
+      createChannels();
+    })
+
+    httpPost("../cgi_bin/selectBoard.php", "request=getBoardMembers&board="+boardName, function (response) {
+      members = JSON.parse(response);
+    })
+
+    httpPost("../cgi_bin/selectBoard.php", "request=getInviteCode&board="+boardName, function (response) {
+      invCode = (response);
+    })
+
+
+
+
+
+
+
+
+    function hamburgerFunctionMenu() {
+      var x = document.getElementById("disHeader");
+      if (x.className === "header") {
+        x.className += " responsive";
+      }
+      else {
+        x.className = "header";
+      }
+    }
+
+
+
+    function hamburgerFunctionIcons() {
+      var x = document.getElementById("channelIcons");
+      if (x.className === "boardIcons") {
+        x.className += " responsive";
+      }
+      else {
+        x.className = "boardIcons";
+      }
+    }
+
+    function hamburgerFunctionChannel() {
+      var x = document.getElementById("channels");
+      if (x.className === "boardChannels") {
+        x.className += " responsive";
+      }
+      else {
+        x.className = "boardChannels";
+      }
+    }
+
+
+
+    function createChannels() {
+      var buttonLocation = document.getElementById('channels');
+      var newInnerHtml = "";
+      for (var i = 0; i < disChannels.length; i++) {
+        curDiscBoard = disChannels[i];
+        newButton = '<a onClick="apiBoardCall(' + i + ')">' + curDiscBoard + "</a>";
+        newInnerHtml += newButton;
+      }
+      if (disChannels.length == 0) {
+      }
+      buttonLocation.innerHTML =
+        '<a href="javascript:void(0);" class="icon" id="menuIcon" onclick="hamburgerFunctionChannel()">'
+        + '<img src="imgs/arrowdown.png" width="20px" height="20px">'
+        + '</img>'
+        + '</a>' + newInnerHtml;
+    }
+    //Switch this function to be a redirect link to the correct disscusion board
+    function apiBoardCall(curChan) {
+
+
+      var backImg = document.getElementById('backLogo');
+      backImg.style.display = "none";
+
+      var messageBox = document.getElementById('msgBox');
+      messageBox.style.display = "block";
+
+
+      createSingleChannel(curChan);
+
+
+    }
+
+    function createSingleChannel(curChan) {
+      var singleChannelMessages = document.getElementById('curChannel');
+
+
+      msgTable = '<div class="tableWrapper"> <table>';
+      for (var i = 0; i < users.length; i++) {
+        msgTable += '<tr> <td style="text-align:right; font-weight: bold;">';
+        msgTable += users[i] + ':';
+        msgTable += '</td> <td style="text-align:left;">';
+        msgTable += msg[i];
+        msgTable += "</td> </tr>";
+      }
+
+      msgTable += '</table>';
+
+
+      var backPicture = document.getElementById('backLogo');
+      backPicture.style.display = "none";
+
+
+      singleChannelMessages.innerHTML = msgTable;
+
+
+      singleChannelMessages.scrollTop = singleChannelMessages.scrollHeight;
+    }
+
+    function openChannelManagment() {
+      document.getElementById("mangeChannelPopUp").style.display = "block";
+      document.getElementById("createChannelPopUp").style.display = "none";
+      document.getElementById("deleteChannelPopUp").style.display = "none";
+      document.getElementById("membersList").style.display = "none";
+      document.getElementById("membersPopup").style.display = "none";
+      document.getElementById("searchPopup").style.display = "none";
+      document.getElementById("editChannelPopUp").style.display = "none";
+    }
+
+    function openCreateChannel() {
+      document.getElementById("createChannelPopUp").style.display = "block";
+      document.getElementById("deleteChannelPopUp").style.display = "none";
+      document.getElementById("membersList").style.display = "none";
+      document.getElementById("membersPopup").style.display = "none";
+      document.getElementById("searchPopup").style.display = "none";
+      document.getElementById("mangeChannelPopUp").style.display = "none";
+      document.getElementById("editChannelPopUp").style.display = "none";
+    }
+
+    function openEditChannel() {
+      document.getElementById("editChannelPopUp").style.display = "block";
+      document.getElementById("createChannelPopUp").style.display = "none";
+      document.getElementById("deleteChannelPopUp").style.display = "none";
+      document.getElementById("membersList").style.display = "none";
+      document.getElementById("membersPopup").style.display = "none";
+      document.getElementById("searchPopup").style.display = "none";
+      document.getElementById("mangeChannelPopUp").style.display = "none";
+    }
+
+    function openSearch() {
+      document.getElementById("searchPopup").style.display = "block";
+      document.getElementById("createChannelPopUp").style.display = "none";
+      document.getElementById("deleteChannelPopUp").style.display = "none";
+      document.getElementById("membersList").style.display = "none";
+      document.getElementById("membersPopup").style.display = "none";
+      document.getElementById("mangeChannelPopUp").style.display = "none";
+      document.getElementById("editChannelPopUp").style.display = "none";
+    }
+
+
+    function openDeleteChannel() {
+      document.getElementById("deleteChannelPopUp").style.display = "block";
+      document.getElementById("createChannelPopUp").style.display = "none";
+      document.getElementById("membersList").style.display = "none";
+      document.getElementById("membersPopup").style.display = "none";
+      document.getElementById("searchPopup").style.display = "none";
+      document.getElementById("mangeChannelPopUp").style.display = "none";
+      document.getElementById("editChannelPopUp").style.display = "none";
+    }
+
+    function openMembersList() {
+      var memListBox = document.getElementById("membersPopup");
+      memListBox.style.display = "block";
+      document.getElementById("createChannelPopUp").style.display = "none";
+      document.getElementById("deleteChannelPopUp").style.display = "none";
+      document.getElementById("membersList").style.display = "none";
+      document.getElementById("searchPopup").style.display = "none";
+      document.getElementById("mangeChannelPopUp").style.display = "none";
+      document.getElementById("editChannelPopUp").style.display = "none";
+
+      var memList = document.getElementById("membersList");
+      memList.style.display = "block";
+
+
+      var inviteDiv = document.getElementById("inviteCode");
+      inviteInfo = "<p> Invite Code:" + invCode + " </p>";
+      inviteInfo += '<h2 style="text-align: center;" style="margin-bottom: 0;  ">Members</h2>';
+
+
+
+      createList = '<table>';
+
+      for (var i = 0; i < members.length; i++) {
+        createList += '<tr> <td>';
+        createList += members[i];
+        createList += '</td> <td>';
+        createList += '<button onclick=deleteMem(' + i + ')> <img src=imgs/trash.png "> </img> </button>';
+        createList += "</td> </tr>";
+      }
+
+      createList += '</table>';
+      memList.innerHTML = createList;
+      inviteDiv.innerHTML = inviteInfo;
+
+
+    }
+
+    function deleteMem(i) {
+      alert(members[i])
+
+    }
+
+
+    function closePopUp() {
+      document.getElementById("createChannelPopUp").style.display = "none";
+      document.getElementById("deleteChannelPopUp").style.display = "none";
+      document.getElementById("membersList").style.display = "none";
+      document.getElementById("membersPopup").style.display = "none";
+      document.getElementById("searchPopup").style.display = "none";
+      document.getElementById("mangeChannelPopUp").style.display = "none";
+      document.getElementById("editChannelPopUp").style.display = "none";
+    }
+
+
+    //Onload run these functions to populate
+
+    createChannels();
+
+
+    // Set the initial scroll position to the bottom
+
+
+  </script>
+
+
+</body>

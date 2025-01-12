@@ -1,0 +1,4 @@
+save it in plain txt as a cookie on the log in page. sends the cookie with log in info back to 
+
+
+

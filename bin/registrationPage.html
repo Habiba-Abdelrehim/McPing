@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=”utf-8”>
+    <meta name=viewport content="width-device-width, inital-scale=1.0">
+
+    <title>McPing registration</title>
+    <script>
+
+
+        function Register() {
+
+            isMissing = false
+
+
+            if (document.getElementById("firstname").value == "") {
+                document.getElementById("firstname1").style.color = "red";
+                isMissing = true;
+            }
+            else {
+                document.getElementById("firstname1").style.color = "black";
+            }
+
+            if (document.getElementById("lastname").value == "") {
+                document.getElementById("lastname1").style.color = "red";
+                isMissing = true;
+            }
+            else {
+                document.getElementById("lastname1").style.color = "black";
+            }
+
+            if (document.getElementById("password").value == "") {
+                document.getElementById("password1").style.color = "red";
+                isMissing = true;
+            }
+            else {
+                document.getElementById("password1").style.color = "black";
+            }
+
+            if (document.getElementById("password3").value == "") {
+                document.getElementById("password2").style.color = "red";
+                isMissing = true;
+            }
+            else {
+                document.getElementById("password2").style.color = "black";
+            }
+
+            if (!(document.getElementById("password1").value == document.getElementById("password3").value)) {
+                alert("your passwords don't match. Please review you passwords. ");
+                return;
+            }
+
+            if (document.getElementById("email").value == "") {
+                document.getElementById("email1").style.color = "red";
+                isMissing = true;
+            }
+            else {
+                document.getElementById("email1").style.color = "black";
+            }
+
+            if (document.getElementById("studentorstaffid").value == "") {
+                document.getElementById("ids").style.color = "red";
+                isMissing = true;
+            }
+            else {
+                document.getElementById("ids").style.color = "black";
+            }
+
+            if (isMissing) {
+                alert("Please fill all required fields");
+                return
+            }
+
+            if (!document.getElementById("email").value.includes("@")) {
+                alert("Verify email format to be x@y ");
+            }
+
+            document.getElementById("form").submit();
+
+        }
+
+        document.addEventListener("keypress", function (event) {
+            if (event.key == "Enter") {
+                document.getElementById("registerButton").click();
+            }
+        });
+    </script>
+    <style>
+        * {
+            color: black;
+        }
+
+        .samewidth {
+            width: 100px;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid red;
+            border-radius: 5px;
+
+        }
+    </style>
+</head>
+
+<body style="background-image: url(imgs/light\ electirc.jpg);background-repeat: no-repeat; background-size: cover; ">
+    <form id="form" name="input" action="../cgi_bin/register.php" method="post" autocomplete="on"
+        style="background-color: white;">
+
+        <!--form-->
+        <h1><b>Register to McPing!</b></h1>
+        <h5>Please fill the form below to register to McPing.</h5>
+
+
+        <h3><b>User Information</b></h3>
+        <table>
+            <tr>
+                <td>
+                    <b id="firstname1">First Name:</b>
+                </td>
+                <td>
+                    <input id="firstname" type="text" name="firstname" minlength="1"> <br />
+                </td class="samewidth">
+            </tr>
+
+            <tr>
+                <td class="samewidth">
+                    <b id="lastname1">Last Name:</b>
+                </td>
+                <td>
+                    <input id="lastname" type="text" name="lastname" minlength="1"> <br />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="samewidth">
+                    <b id="email1">Email:</b>
+                </td>
+                <td>
+                    <input id="email" type="email" name="email"> <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b class="samewidth" id="ids">Student or Staff ID</b>
+                </td>
+                <td>
+                    <input id="studentorstaffid" type="numbers" name="studentorstaffid" placeholder="#########"> <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b id="password">Password:</b>
+                </td>
+                <td>
+                    <input id="password1" type="password" name="password" minlength="1"> <br />
+                </td class="samewidth">
+            </tr>
+            <tr>
+                <td>
+                    <b id="password2">Confirm your Password:</b>
+                </td>
+                <td>
+                    <input id="password3" type="password" name="password" minlength="1"> <br />
+                </td class="samewidth">
+            </tr>
+
+        </table>
+
+
+        <h3><b>User status at McGill</b></h3>
+        <h5 id="status">Please fill the question bellow : </h5>
+        <input id="status" type="radio" name="type" value="Student" checked>Student
+        <input id="status" type="radio" name="type" value="TA">TA
+        <input id="status" type="radio" name="type" value="Professor">Professor
+
+        <table>
+            <tr>
+                <td class="samewidth"></td>
+                <td> <button type="button" id="registerButton" value="Register" name="submitButton" 
+                    onclick="Register()"> Register </button>
+                 </td>
+                
+            </tr>
+        </table>
+       
+    </form>
+
+</body>
+
+</html>

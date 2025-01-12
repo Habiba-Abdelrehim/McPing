@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width-device-width, inital-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>McPing</title>
+
+    <script>
+        function gotoLoginPage() {
+            //document.getElementById("loginButton");
+            window.location.href = 'loginPage.php'
+        }
+        function gotoRegisterPage() {
+            //document.getElementById("loginButton");
+            window.location.href = 'registrationPage.html'
+        }
+
+        function moreInfo() {
+            var panel = document.getElementById("panell");
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            }
+            else {
+                panel.style.display = "block";
+            }
+        }
+
+        function myFunction() {
+            var x = document.getElementById("disHeader");
+            if (x.className === "header") {
+                x.className += " responsive";
+            } else {
+                x.className = "header";
+            }
+        }
+
+    </script>
+</head>
+
+<body
+    style="background-image: url(imgs/light\ electirc.jpg); background-size: cover;height:100%">
+
+
+    <!--header-->
+    <div id="pageHeader">
+
+        <div class="col-12 col-p-12">
+            <div class="header" id="disHeader">
+
+
+                <img style="margin:20px;" width="3.5rem" height="10rem" src="imgs/logo_wText.png"></img>
+
+                <h1 style="color: white;"> McPing </h1>
+
+                <a id="loginButton" onclick="gotoLoginPage()"> Login </a>
+                <a id="registerButton" onclick="gotoRegisterPage()"> Register </a>
+
+
+                <!-- Hamburger Menu Button  -->
+                <a href="javascript:void(0);" class="icon" id="menuIcon" onclick="myFunction()">
+                    <img src="imgs/MenuButWhite.png" width="10px" height="10px" style="width: auto;height: 30px;"></img>
+
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+    <!--main content-->
+    <div class="special">
+
+        <div class="col-5 col-p-5" style="display: block;padding-bottom: 80px;">
+            <img src="imgs/mcgill-logo.png" alt="logoOfMcPing" style="height:4rem; width: 3.5rem;">
+            <h1 style="color:rgb(0, 0, 0)">Welcome to McPing!</h1>
+            <h4 style="color:rgb(0, 0, 0)">McGill's favorite & coolest communication platform</h4>
+            <button class="accordion" onclick="moreInfo()" style="color: rgb(255, 255, 255);">
+                <p>Hi there,
+                    McPing, is a communication platform that will allow students, TAs and Professors
+                    to effectively communicate on a casual platform. This system allows you, the user, to
+                    connect to discussion boards, create discussion boards and stay up to date on the shared
+                    information
+                    <br>
+                    <br>
+                    <br> Click to expand
+                </p>
+            </button>
+            <div id="panell" class="panel" style="color:white">
+                <p> Essentially, a groupchat communication platform.
+                    Soon, more features will be available such as private discussions between 2 users of any
+                    status.
+                    If you don't have an account, please register. You will be prompted back to the Landing page
+                    to
+                    Login.
+                    If you already have an account, please login to access your discussion platform.</p>
+            </div>
+            <br>
+            <div style="align-content: center;align-items: center; ">
+                <button class="loginButton" id="loginButton" onclick="gotoLoginPage()"> Login </button>
+                <button class="registerButton" id="registerButton" onclick="gotoRegisterPage()"> Register
+                </button>
+            </div>
+            <div class="col-2 col-p-2"></div>
+        </div>
+
+  
+ 
+    </div>
+          <!--FOOTER-->
+          <div class="footerspecial">
+            <div class="col-12 col-p-12" style="background-color: rgba(0,0,0,0.7)">
+                <p style="color:white">
+                    McPing for McGill University
+                    <br>
+                    Ville Marie, Montreal, QC, Canada
+                    <br> Chat robot to be released in January of 2024
+                </p>
+            </div>
+        </div>
+         
+    <br>
+
+
+    
+
+</body>
+
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- CSS Refrences  -->
+  <link rel="stylesheet" type="text/css" href="project.css">
+
+  <!-- JavaScript-->
+  <script src="utils.js"></script>
+
+  <!--LogOut API Call-->
+  <script>
+
+    function logOut() {
+      httpPost("../cgi_bin/logout.php", "", function (response) {
+        document.open();
+        document.write(response);
+        document.close();
+      });
+    }
+  </script>
+
+
+</head>
+<body style="background-image: url(imgs/light\ electirc.jpg);
+             background-repeat: no-repeat; 
+            background-size: cover;">
+
+
+  <div id="pageHeader">
+    <!-- Header Bar -->
+    <div class="col-12 col-p-12">
+      <div class="header" id="disHeader">
+
+        <!-- Logo Source 2228 x 800 original size  2.785 Ratio> -->
+        <img style="margin:20px;" width="150px" height="54px" src="imgs/logo_wText.png"></img>
+
+        <!-- Title  -->
+        <h1> McPing </h1>
+
+        <!-- Logout Button  -->
+        <a id="logOut" onClick="logOut()">Log Out</a>
+
+        <!-- SelectDis  Button-->
+        <a id="headerSelect" style="display:none;" onClick="">Select Disscusion Board</a>
+
+        <!-- Hamburger Menu Button  -->
+        <a href="javascript:void(0);" class="icon" id="menuIcon" onclick="hamburgerFunction()">
+          <img src="imgs/MenuButWhite.png"></img>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="selectPageButtons" id="selectMainContent">
+    <div class="col-12 col-p-12" id="selectBoards">
+
+      <h2> Your Boards</h2>
+
+    </div>
+
+
+    <div class="col-12 col-p-12" id="newBoards">
+
+      <h2> Other Options </h2>
+      <button onClick="openCreateForm()"> Create Board</button>
+      <button onClick="openDeleteForm()"> Delete Board</button>
+      <button onClick="openJoinForm()"> Join Board</button>
+
+    </div>
+
+    <div class="col-12 col-p-12" id="privateMsg">
+
+      <h2> Private Messages </h2>
+      <button onClick="openPrivateMessage()">Create Private Message</button>
+
+    </div>
+  </div>
+
+  
+  <div class="hiddenPopups">
+    <div class="formPopUp" id="createBoardPopUp">
+      <form action="../cgi_bin/manageBoards.php" method="POST">
+        <h2>Create New Board</h2>
+        <div class="inputContainer">
+          <input type="text" name="newTitle" id="nTitle" placeholder="Board Name" required>
+          <input type="hidden" name="request" value="createBoard">
+        </div>
+        <div class="buttonContainer">
+          <button type="submit">Create</button>
+          <button type="button" onclick="closePopUp()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="formPopUp" id="joinBoardPopup">
+      <form action="../cgi_bin/manageBoards.php" method="POST">
+        <h2 style="text-align: center;">Join New Board</h2>
+        <div class="inputContainer">
+          <input type="text" name="invCode" id="iCode" placeholder="Invite Code" required>
+          <input type="hidden" name="request" value="joinBoard">
+        </div>
+        <div class="buttonContainer">
+          <button type="submit">Join</button>
+          <button type="button" onclick="closePopUp()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="formPopUp" id="deleteBoardPopup">
+      <form action="../cgi_bin/manageBoards.php" method="POST">
+        <h2 style="text-align: center;">Delete Board</h2>
+        <div class="inputContainer">
+          <input type="text" name="board" id="iCode" placeholder="Board Name" required>
+          <input type="hidden" name="request" value="deleteBoard">
+        </div>
+        <div class="buttonContainer">
+          <button type="submit">Delete</button>
+          <button type="button" onclick="closePopUp()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="formPopUp" id="privateMsgdPopup">
+        <form action="../cgi_bin/managePM.php" method="POST">
+          <h2 style="text-align: center;">Private Message Invite</h2>
+          <div class="inputContainer">
+          <input type="text" name="receiver" id="iCode" placeholder="User Email" required>
+          <input type="hidden" name="request" value="createPM">
+          </div>
+          <div class="buttonContainer">
+          <button type="submit">Open Messages</button>
+          <button type="button" onclick="closePopUp()">Cancel</button>
+          </div>
+        </form>
+    </div>
+
+  </div>
+
+
+  <div class="footerBar">
+    <div class="col-12 col-p-12">
+      <p>
+        McPing for McGill University
+        <br>
+        Ville Marie, Montreal, QC, Canada
+        <br> Chat robot to be released in January of 2024
+      </p>
+    </div>
+
+
+  </div>
+
+
+
+
+  <script>
+    //Populate arrays from backend for board buttons
+    var discBoards = [];
+    httpPost("../cgi_bin/manageBoards.php", "request=getList", function (response) {
+      discBoards = JSON.parse(response);
+      createButtons();
+    })
+
+    var msgBoards = [];
+    httpPost("../cgi_bin/managePM.php", "request=getList", function (response) {
+      msgBoards = JSON.parse(response);
+      createPrivateMsg();
+    })
+    
+    createPrivateMsg();;
+
+    //Creating the Dicussion Board Buttons Functions. 
+    function createButtons() {
+      var buttonLocation = document.getElementById('selectBoards');
+
+      if (discBoards.length === 0) {
+        buttonLocation.innerHTML += "<h3> Join Your First Board Below! </h3>"
+      }
+      for (var i = 0; i < discBoards.length; i++) {
+        curDiscBoard = discBoards[i];
+        newButton = '<button onClick="apiBoardCall(' + i + ')">' + curDiscBoard + "</button>";
+        buttonLocation.innerHTML += newButton;
+      }
+
+
+    }
+
+    //Creating the Private Message Board Buttons Functions. 
+    function createPrivateMsg() {
+      var msgLocation = document.getElementById('privateMsg');
+      for (var i = 0; i < msgBoards.length; i++) {
+        curMsg = msgBoards[i];
+        newButton = '<button onClick="apiBoardCall(' + i + ')">' + curMsg + "</button>";
+        msgLocation.innerHTML += newButton;
+      }
+
+      if (msgBoards.length == 0) {
+      }
+    }
+
+
+     //function to  a redirect link to the correct disscusion board
+     //By Fatma, does not call backend
+     function apiBoardCall(curDisc) {
+     
+      const url = `discussionBoard.html?board=${encodeURIComponent(discBoards[curDisc])}`;
+     
+      window.location.href = url;
+
+   }
+
+    //Hamburger Responsive Functions
+    function hamburgerFunction() {
+      var x = document.getElementById("disHeader");
+      if (x.className === "header") {
+        x.className += " responsive";
+      }
+      else {
+        x.className = "header";
+      }
+    }
+
+    //Functions for the Popups
+    function openCreateForm() {
+      document.getElementById("createBoardPopUp").style.display = "block";
+      document.getElementById("joinBoardPopup").style.display = "none";
+      document.getElementById("deleteBoardPopup").style.display = "none";
+      document.getElementById("privateMsgdPopup").style.display = "none";
+    }
+
+    function openJoinForm() {
+      document.getElementById("joinBoardPopup").style.display = "block";
+      document.getElementById("createBoardPopUp").style.display = "none";
+      document.getElementById("deleteBoardPopup").style.display = "none";
+      document.getElementById("privateMsgdPopup").style.display = "none";
+    }
+
+    function openDeleteForm() {
+      document.getElementById("deleteBoardPopup").style.display = "block";
+      document.getElementById("createBoardPopUp").style.display = "none";
+      document.getElementById("joinBoardPopup").style.display = "none";
+      document.getElementById("privateMsgdPopup").style.display = "none";
+    }
+
+    function openPrivateMessage() {
+      document.getElementById("privateMsgdPopup").style.display = "block";
+      document.getElementById("createBoardPopUp").style.display = "none";
+      document.getElementById("joinBoardPopup").style.display = "none";
+      document.getElementById("deleteBoardPopup").style.display = "none";
+    }
+
+    function closePopUp() {
+      document.getElementById("createBoardPopUp").style.display = "none";
+      document.getElementById("joinBoardPopup").style.display = "none";
+      document.getElementById("deleteBoardPopup").style.display = "none";
+      document.getElementById("privateMsgdPopup").style.display = "none";
+    }
+
+  </script>
+
+
+
+
+
+</body>
+
+</html>
